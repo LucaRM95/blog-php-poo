@@ -1,0 +1,25 @@
+<?php if (isset($_SESSION['user'])) : ?>
+    <h1>Hacer pedido</h1>
+    <?= Utils::deleteSession('order'); ?>
+
+    <h3>Dirección para el envío</h3>
+    <form action="<?= base_url ?>order/add" method="POST">
+        <label for="province">Provincia</label>
+        <input type="text" name="province" required />
+
+        <label for="location">Localidad</label>
+        <input type="text" name="location" required />
+
+        <label for="address">Direccion</label>
+        <input type="text" name="address" required />
+
+        <input type="submit" value="Finalizar pedido" />
+    </form>
+    <br>
+    <p>
+        <a href="<?= base_url ?>cart/index">Ver productos y precio del pedido</a>
+    </p>
+<?php else : ?>
+    <h1>Usuario no logeado</h1>
+    <p>Necesitas estar logeado para poder realizar tu pedido</p>
+<?php endif; ?>

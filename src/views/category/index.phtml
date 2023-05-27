@@ -1,0 +1,23 @@
+<h1>Gestionar categorías</h1>
+
+<?php if( isset($_SESSION['create_category']) ) :?>
+    <strong class="alert" ><?= $_SESSION['create_category']?></strong>
+<?php elseif( isset($_SESSION['create_category_error']) ): ?>
+    <strong class="alert alert-error" ><?= $_SESSION['create_category_error']?></strong>
+<?php endif; ?>
+<?=Utils::deleteSession('create_category');?>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>NOMBRE</th>
+    </tr>
+    <?php while($cat = $categories->fetch_object()) :?>
+        <tr>
+            <td><?=$cat->id;?></td>
+            <td><?=$cat->nombre;?></td>
+        </tr>
+    <?php endwhile;?>
+</table>
+        
+<a href="<?=base_url?>category/create" class="button button-small" >Crear categoría</a>

@@ -1,0 +1,41 @@
+<h1>Gestión de productos</h1>
+
+<?php if( isset($_SESSION['create_product']) ) :?>
+    <strong class="alert" ><?= $_SESSION['create_product']?></strong>
+<?php elseif( isset($_SESSION['create_product_error']) ): ?>
+    <strong class="alert alert-error" ><?= $_SESSION['create_product_error']?></strong>
+<?php endif; ?>
+
+<?php if( isset($_SESSION['delete_successfully']) ): ?>
+    <strong class="alert" ><?= $_SESSION['delete_successfully']?></strong>
+<?php elseif( isset($_SESSION['delete_error']) ): ?>
+    <strong class="alert alert-error" ><?= $_SESSION['delete_error']?></strong>
+<?php endif; ?>
+
+<?= isset($_SESSION['create_product']) && Utils::deleteSession('create_product');?>
+<?= isset($_SESSION['create_product_error']) && Utils::deleteSession('create_product_error');?>
+<?= isset($_SESSION['delete_successfully']) && Utils::deleteSession('delete_successfully');?>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>NOMBRE</th>
+        <th>PRECIO</th>
+        <th>STOCK</th>
+        <th class="actions-table">ACCIONES</th>
+    </tr>
+    <?php while($prod = $products->fetch_object()) :?>
+        <tr>
+            <td><?=$prod->id;?></td>
+            <td><?=$prod->nombre;?></td>
+            <td>$<?=$prod->precio;?></td>
+            <td><?=$prod->stock;?></td>
+            <td>
+                <a class="button button-gestion button-green" href="<?=base_url?>product/edit&id=<?=$prod->id?>">Editar</a>
+                <a class="button button-gestion button-red" href="<?=base_url?>product/delete&id=<?=$prod->id?>">Eliminar</a>
+            </td>
+        </tr>
+    <?php endwhile;?>
+</table>
+        
+<a href="<?=base_url?>product/create" class="button button-small" >Crear producto</a>

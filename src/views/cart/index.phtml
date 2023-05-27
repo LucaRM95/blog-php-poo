@@ -1,0 +1,48 @@
+<h1>Carrito de compra</h1>
+
+<?php if (isset($cart) && $cart != null) : ?>
+    <table>
+        <tr>
+            <th>Imagen</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Unidades</th>
+            <th>Eliminar</th>
+        </tr>
+        <?php
+        foreach ($cart as $index => $element) :
+            $product = $element['product'];
+        ?>
+            <tr>
+                <td>
+                    <?php if (!is_null($product->imagen)) : ?>
+                        <img src="<?= base_url ?>/uploads/images/<?= $product->imagen; ?>" class="img_carrito" />
+                    <?php else : ?>
+                        <img src="/assets/img/camiseta.png" class="img_carrito" />
+                    <?php endif; ?>
+                </td>
+                <td><a href="<?= base_url ?>product/view&id=<?= $product->id ?>"><?= $product->nombre ?></a></td>
+                <td>$<?= $product->precio ?></td>
+                <td>
+                    <?= $element['units'] ?>
+                    <div class="updown-unidades">
+                        <a href="<?=base_url?>cart/up&index=<?=$index?>" class="button" >+</a>
+                        <a href="<?=base_url?>cart/down&index=<?=$index?>" class="button" >-</a>
+                    </div>
+                </td>
+                <td>
+                    <a href="<?= base_url ?>cart/delete&index=<?=$index?>" class="button button-carrito button-red">Eliminar</a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+    <div class="delete-carrito">
+        <a href="<?= base_url ?>cart/delete_all" class="button button-delete button-red">Vaciar carrito</a>
+    </div>
+    <div class="total-carrito">
+        <h3>Total: $<?= $total['total'] ?></h3>
+        <a href="<?= base_url ?>order/make" class="button button-pedido">Hacer pedido</a>
+    </div>
+<?php else : ?>
+    <p>No hay productos en el carrito</p>
+<?php endif; ?>

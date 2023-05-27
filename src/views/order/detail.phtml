@@ -1,0 +1,71 @@
+<h1>Detalle del pedido</h1>
+
+<?php if (isset($order)) : ?>
+
+    <?php if (isset($_SESSION['admin'])) : ?>
+        <?php if (isset($_SESSION['update']) ) : ?>
+            <strong class="alert"><?=$_SESSION['update']?></strong><br><br>
+        <?php elseif (isset($_SESSION['update_error']) ) : ?>
+            <strong class="alert alert-error"><?=$_SESSION['update_error']?></strong><br><br>
+        <?php endif; ?>
+        <?= Utils::deleteSession('update'); ?>
+
+        <h3>Cambiar estado del pedido</h3>
+
+        <form action="<?= base_url ?>order/state" method="post">
+            <!-- Enviar el estado sin pasar por GET -->
+            <input type="hidden" name="order_id" value="<?=$order->id?>" />
+            <select name="state">
+                <option value="CONFIRM" <?=$order->estado == 'CONFIRM' ? 'selected' : '' ?> >Pendiente</option>
+                <option value="IN PROCCESS" <?=$order->estado == 'IN PROCCESS' ? 'selected' : '' ?> >En preparación</option>
+                <option value="READY TO DELIVER" <?=$order->estado == 'READY TO DELIVER' ? 'selected' : '' ?> >Preparado para envíar</option>
+                <option value="SENT" <?=$order->estado == 'SENT' ? 'selected' : '' ?> >Enviado</option>
+                <option value="DELIVERED" <?=$order->estado == 'DELIVERED' ? 'selected' : '' ?> >Entregado</option>
+            </select>
+
+            <input type="submit" value="Cambiar estado"><br>
+        </form>
+
+        <h3>Datos del usuario</h3>
+        Nombre: <?= $user->nombre ?> <br>
+        Apellidos: <?= $user->apellidos ?> <br>
+        Email: <?= $user->email ?> <br><br>
+    <?php endif; ?>
+
+    <h3>Dirección de envío</h3>
+    Provincia: <?= $order->provincia ?> <br>
+    Localidad: <?= $order->localidad ?> <br>
+    Dirección: <?= $order->direccion ?> <br>
+
+
+    <br>
+    <h3>Datos del pedido:</h3><br>
+
+    Estado: <?= Utils::showState($order->estado); ?> <br>
+    Número de pedido: <?= $order->id ?> <br>
+    Productos:
+    <table>
+        <tr>
+            <th>Imagen</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Unidades</th>
+        </tr>
+        <?php while ($product = $products->fetch_object()) : ?>
+            <tr>
+                <td>
+                    <?php if (!is_null($product->imagen)) : ?>
+                        <img src="<?= base_url ?>/uploads/images/<?= $product->imagen; ?>" class="img_carrito" />
+                    <?php else : ?>
+                        <img src="/assets/img/camiseta.png" class="img_carrito" />
+                    <?php endif; ?>
+                </td>
+                <td><a href="<?= base_url ?>product/view&id=<?= $product->id ?>"><?= $product->nombre ?></a></td>
+                <td>$<?= $product->precio ?></td>
+                <td><?= $product->unidades ?></td>
+            </tr>
+        <?php endwhile; ?>
+    </table>
+
+    <strong>Total a pagar: $<?= $order->coste ?> <br></strong>
+<?php endif; ?>

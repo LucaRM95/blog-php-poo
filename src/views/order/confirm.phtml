@@ -1,0 +1,40 @@
+<?php if (isset($_SESSION['order'])) : ?>
+    <h1>Pedido confirmado</h1>
+    <p>
+        Tu pedido se ha realizado con éxito, una vez hecha la transferencia bancaria a la cuenta 5149813218, será procesado y enviado.
+    </p>
+    <br>
+    <?php if (isset($order)) : ?>
+        <h3>Datos del pedido:</h3> <br>
+
+        Número de pedido: <?= $order->id ?> <br>
+        Productos:
+        <table>
+            <tr>
+                <th>Imagen</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Unidades</th>
+            </tr>
+            <?php while ($product = $products->fetch_object()) : ?>            
+                <tr>
+                    <td>
+                        <?php if (!is_null($product->imagen)) : ?>
+                            <img src="<?= base_url ?>/uploads/images/<?= $product->imagen; ?>" class="img_carrito" />
+                        <?php else : ?>
+                            <img src="/assets/img/camiseta.png" class="img_carrito" />
+                        <?php endif; ?>
+                    </td>
+                    <td><a href="<?= base_url ?>product/view&id=<?= $product->id ?>"><?= $product->nombre ?></a></td>
+                    <td>$<?= $product->precio ?></td>
+                    <td><?= $product->unidades ?></td>
+                </tr>
+            <?php endwhile; ?>
+        </table>
+
+        <strong>Total a pagar: $<?= $order->coste ?> <br></strong> 
+    <?php endif; ?>
+
+<?php elseif (isset($_SESSION['order_error'])) : ?>
+    <h1>Tu pedido no ha podido procesarse</h1>
+<?php endif; ?>

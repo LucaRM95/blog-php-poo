@@ -1,0 +1,43 @@
+<?php if( isset($edit) && isset($product_to_edit) && is_object($product_to_edit) ):?>
+    <h1>Editar producto <?=$product_to_edit->nombre?></h1>
+    <?php $url_action = base_url.'product/save&id='.$product_to_edit->id;?>
+<?php else :?>
+    <h1>Crear nuevo producto</h1>
+    <?php $url_action = base_url.'product/save';?>
+<?php endif ;?>
+
+<form class="form_container" action="<?=$url_action?>" method="POST" enctype="multipart/form-data">
+
+    <label for="name">Nombre</label>
+    <input type="text" name="name" value="<?= isset($product_to_edit) && is_object($product_to_edit) ? $product_to_edit->nombre : ""; ?>" required />
+
+    <label for="description">Descripción</label>
+    <textarea name="description" required ><?= isset($product_to_edit) && is_object($product_to_edit) ? $product_to_edit->descripcion : ""; ?></textarea>
+
+    <label for="price">Precio</label>
+    <input type="number" name="price" value="<?= isset($product_to_edit) && is_object($product_to_edit) ? $product_to_edit->precio : ""; ?>" required />
+
+    <label for="stock">Stock</label>
+    <input type="number" name="stock" value="<?= isset($product_to_edit) && is_object($product_to_edit) ? $product_to_edit->stock : ""; ?>" required />
+
+    <label for="category">Categoría</label>
+    <?php $categories = Utils::showCategories();?>
+    <select name="category">
+        <?php while($cat = $categories->fetch_object()):?>
+            <option value="<?=$cat->id?>" <?= isset($product_to_edit) && is_object($product_to_edit) && $cat->id == $product_to_edit->categoria_id ?"selected" :""; ?>>
+            <?=$cat->nombre;?>
+            </option>
+        <?php endwhile;?>
+    </select>
+
+    <!-- <label for="offers">Ofertas</label>
+    <input type="text" name="offers" required /> -->
+
+    <label for="image">Imagen</label>
+    <?php if( isset($product_to_edit) && is_object($product_to_edit) && !empty($product_to_edit->imagen) ) :?>
+        <img src="<?=base_url?>/uploads/images/<?=$product_to_edit->imagen;?>" class="thumb"/>
+    <?php endif;?>
+    <input type="file" name="image" />
+
+    <input type="submit" value="<?= isset($product_to_edit) && is_object($product_to_edit) ? "Editar" : "Crear"; ?>" />
+</form>

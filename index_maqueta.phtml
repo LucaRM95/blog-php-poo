@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <title>Tienda de Ropa</title>
+</head>
+<body>
+<!-- CABECERA -->
+    <header id="header">
+        <div id="logo">
+            <img src="assets/img/camiseta.png" alt="Camiseta Logo">
+            <a href="index.php">
+                <h1>Tienda de Ropa</h1>
+            </a>
+        </div>
+    </header>
+<!-- MENU -->
+    <nav id="menu">
+        <ul>
+            <li>
+                <a href="#">Inicio</a>
+            </li>
+            <li>
+                <a href="#">Categoría 1</a>
+            </li>
+            <li>
+                <a href="#">Categoría 2</a>
+            </li>
+            <li>
+                <a href="#">Categoría 3</a>
+            </li>
+            <li>
+                <a href="#">Categoría 4</a>
+            </li>
+            <li>
+                <a href="#">Categoría 5</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="content">
+        <!-- BARRA LATERAL -->
+        <aside id="lateral">
+            <h3>Entrar en la web</h3>
+            <div id="login" class="block_aside" >
+                <form action="" method="POST">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" />
+
+                    <label for="password">Password</label>
+                    <input type="password" name="password" />
+
+                    <input type="submit" class="button" value="Entrar">
+                </form>
+
+                <ul>
+                    <li>
+                        <a href="">Mis Pedidos</a>
+                    </li>
+                    <li>
+                        <a href="">Gestionar Pedidos</a>
+                    </li>
+                    <li>
+                        <a href="">Gestionar Categorías</a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+        <!-- CONTENIDO CENTRAL -->
+        <div id="central">
+            <div class="product">
+                <img src="assets/img/camiseta.png" />
+                <h2>Camiseta Azul Olgada Ancha</h2>
+                <p>30 Euros</p>
+                <a href="#">Comprar</a>
+            </div>
+
+            <div class="product">
+                <img src="assets/img/camiseta.png" />
+                <h2>Camiseta Azul Olgada Ancha</h2>
+                <p>30 Euros</p>
+                <a href="#">Comprar</a>
+            </div>
+
+            <div class="product">
+                <img src="assets/img/camiseta.png" />
+                <h2>Camiseta Azul Olgada Ancha</h2>
+                <p>30 Euros</p>
+                <a href="#">Comprar</a>
+            </div>
+        </div>
+    </div>
+<!-- PIE DE PÁGINA -->
+    <footer id="footer">
+        <p>Desarrollado por LucaRM &copy; <?= date('Y')?></p>
+    </footer>
+
+</body>
+</html>
