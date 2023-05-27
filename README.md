@@ -6,4 +6,4 @@ This is a personal e-commerce project using php with oop and MVC architectural p
 
 ## Installations
 
-To run the project you need to install php and Wamp or Xampp server, then you need to configure your database in file 
+To run the project you need to install php and Wamp or Xampp server, then you need to configure your database in file src/config/db.php. 
